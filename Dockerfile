@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt ./setup.cfg ./black.toml ./.pylintrc /
+COPY ./pytest.ini /pytest.ini
 
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip -r /requirements.txt

@@ -8,6 +8,7 @@ from typing import Optional
 from collectors.collector import (
     CountryCollector,
     CurrencyRatesCollector,
+    NewsCollector,
     WeatherCollector,
 )
 from collectors.models import (
@@ -15,6 +16,7 @@ from collectors.models import (
     CurrencyInfoDTO,
     LocationDTO,
     LocationInfoDTO,
+    NewsDTO,
     WeatherInfoDTO,
 )
 
@@ -24,25 +26,30 @@ class Reader:
     Чтение сохраненных данных.
     """
 
-    async def find(self, location: str) -> Optional[LocationInfoDTO]:
+    async def find(self, name: str) -> Optional[LocationInfoDTO]:
         """
         Поиск данных о стране по строке.
 
-        :param location: Строка для поиска
+        :param name: Строка для поиска
         :return:
         """
 
-        country = await self.find_country(location)
+        country = await self.find_country(name)
         if country:
-            weather = await self.get_weather(
-                LocationDTO(capital=country.capital, alpha2code=country.alpha2code)
+            location = LocationDTO(
+                capital=country.capital,
+                alpha2code=country.alpha2code,
+                country=country.name,
             )
+            weather = await self.get_weather(location)
             currency_rates = await self.get_currency_rates(country.currencies)
+            news = await self.get_news(location)
 
             return LocationInfoDTO(
                 location=country,
                 weather=weather,
                 currency_rates=currency_rates,
+                country_news=news,
             )
 
         return None
@@ -64,6 +71,19 @@ class Reader:
                     result[currency.code] = 1 / rate
 
         return result
+
+    @staticmethod
+    async def get_news(location: LocationDTO) -> list[NewsDTO]:
+        """
+        Получение данных о новостях.
+        :param location: Место для получения данных
+        :return:
+        """
+        return [
+            await NewsCollector.read(location=location, number=i)
+            for i in range(3)
+            if i < len(location.news_sources)
+        ]
 
     @staticmethod
     async def get_weather(location: LocationDTO) -> Optional[WeatherInfoDTO]:

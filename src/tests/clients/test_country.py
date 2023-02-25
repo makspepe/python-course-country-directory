@@ -6,7 +6,6 @@ import pytest
 
 from clients.country import CountryClient
 
-
 @pytest.mark.asyncio
 class TestClientCountry:
     """
