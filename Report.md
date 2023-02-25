@@ -10,12 +10,11 @@
 -   Добавлены автотесты
 	-   И pytest.ini добавлен в контейнер
 -   Обновлена документация
-
-![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/master/media/1.PNG)
+![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/hw2/media/1.PNG)
 
 ### Таблица 
-![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/master/media/2.PNG)
-![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/master/media/3.PNG)
+![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/hw2/media/2.PNG)
+![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/hw2/media/3.PNG)
 
 ### Тесты
-![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/master/media/4.PNG)
+![](https://raw.githubusercontent.com/makspepe/python-course-country-directory/hw2/media/4.PNG)
